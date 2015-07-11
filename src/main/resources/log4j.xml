@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="false">
+    <appender name="default.console" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.out"/>
+        <layout class="org.apache.log4j.SimpleLayout"/>
+    </appender>
+    <appender name="default.file" class="org.apache.log4j.FileAppender">
+        <param name="file" value="logger.log"/>
+        <param name="append" value="false"/>
+        <layout class="org.apache.log4j.SimpleLayout"/>
+    </appender>
+
+    <!--logger name="Main" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="default.file"/>
+    </logger-->
+    <!--logger name="edu.tutorial.classes.Store" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="default.file"/>
+    </logger-->
+
+    <root>
+        <priority value="info"/>
+        <appender-ref ref="default.console"/>
+    </root>
+</log4j:configuration>
