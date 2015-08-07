@@ -1,9 +1,8 @@
-import edu.tutorial.classes.Clerk;
-import edu.tutorial.classes.Customer;
-import edu.tutorial.classes.GroceryItem;
-import edu.tutorial.classes.GroceryStore;
+import edu.tutorial.classes.*;
+import edu.tutorial.db.DBConnector;
 import org.apache.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,5 +33,16 @@ public class Main {
         Logger.getLogger(Main.class).info(groceries.toString());
         Logger.getLogger(Main.class).info(customers.toString());
         Logger.getLogger(Main.class).info(clerks.toString());
+
+        DBConnector connector = new DBConnector();
+        try {
+            connector.initConnection();
+            connector.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
