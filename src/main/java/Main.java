@@ -17,10 +17,13 @@ public class Main {
         List<Customer> customers=new ArrayList<Customer>();
         List<GroceryItem> groceries=new ArrayList<GroceryItem>();
 
-        groceries.add(new GroceryItem.Builder().setName("potato").build());
-        groceries.add(new GroceryItem.Builder().setName("carrot").build());
+        groceries.add(new GroceryItem.Builder().setName("potato").setAmount(100).setPrice(5).setMeasure(Measures.KILOGRAM).build());
+        groceries.add(new GroceryItem.Builder().setName("carrot").setAmount(50).setPrice(2).setMeasure(Measures.KILOGRAM).build());
+        groceries.add(new GroceryItem.Builder().setName("onion").setAmount(20).setPrice(1).setMeasure(Measures.KILOGRAM).build());
+        groceries.add(new GroceryItem.Builder().setName("snikers").setAmount(500).setPrice(1).setMeasure(Measures.AMOUNT).build());
 
-        customers.add(new Customer.Builder().setName("Vladimir").build());
+        customers.add(new Customer.Builder().setName("Vladimir").setMail("vovchik33@gmail.com").build());
+        customers.add(new Customer.Builder().setName("Sergey").setMail("flashconsult@mail.ru").build());
 
         clerks.add(new Clerk.Builder().setName("Valentina").build());
 
@@ -37,6 +40,17 @@ public class Main {
         DBConnector connector = new DBConnector();
         try {
             connector.initConnection();
+
+            for (Clerk item:clerks) {
+                connector.registerClerk(item);
+            }
+            for (Customer item:customers) {
+                connector.registerCustomer(item);
+            }
+            for (GroceryItem item:groceries) {
+                connector.registerGroceryItem(item);
+            }
+
             connector.closeConnection();
         } catch (SQLException e) {
             e.printStackTrace();

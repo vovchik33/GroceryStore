@@ -29,6 +29,9 @@ public class GroceryItem {
     public String toString() {
         return "GroceryItem{" +
                 "name='" + name + '\'' +
+                ", price=" + price +
+                ", amount=" + amount +
+                ", measure=" + measure +
                 '}';
     }
 

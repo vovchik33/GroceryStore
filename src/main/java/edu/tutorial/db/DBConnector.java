@@ -1,5 +1,8 @@
 package edu.tutorial.db;
 
+import edu.tutorial.classes.Clerk;
+import edu.tutorial.classes.Customer;
+import edu.tutorial.classes.GroceryItem;
 import edu.tutorial.classes.Measures;
 import org.apache.log4j.Logger;
 
@@ -35,10 +38,10 @@ public class DBConnector {
         statement.executeUpdate("drop table if exists customer");
         statement.executeUpdate("drop table if exists measure");
 
-        statement.executeUpdate("create table grocery (id integer, name string, price integer, amount integer, measure string)");
-        statement.executeUpdate("create table clerk (id integer, name string)");
-        statement.executeUpdate("create table customer (id integer, name string)");
-        statement.executeUpdate("create table measure (id integer PRIMARY KEY AUTOINCREMENT NOT NULL , name string, short_name string)");
+        statement.executeUpdate("create table grocery (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, name string UNIQUE, price integer, amount integer, measure string)");
+        statement.executeUpdate("create table clerk (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, name string UNIQUE)");
+        statement.executeUpdate("create table customer (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, name string UNIQUE)");
+        statement.executeUpdate("create table measure (id integer PRIMARY KEY AUTOINCREMENT NOT NULL , name string UNIQUE, short_name string)");
 
         for (Measures item:Measures.values()) {
             statement.executeUpdate("insert into measure (name, short_name) values ('"+item.getValueName()+"', '"+item.getShortening()+"')");
@@ -48,5 +51,27 @@ public class DBConnector {
         statement.close();
     }
 
-    
+    public void registerClerk(Clerk item) throws SQLException {
+        Logger.getLogger(DBConnector.class).info("Register Clerk "+item.toString());
+        Statement statement = (Statement) connection.createStatement();
+        statement.setQueryTimeout(30);
+        statement.executeUpdate("insert into clerk (name) values ('" + item.getName() + "')");
+        statement.close();
+    }
+
+    public void registerCustomer(Customer item) throws SQLException {
+        Logger.getLogger(DBConnector.class).info("Register Customer "+item.toString());
+        Statement statement = (Statement) connection.createStatement();
+        statement.setQueryTimeout(30);
+        statement.executeUpdate("insert into customer (name) values ('" + item.getName() + "')");
+        statement.close();
+    }
+
+    public void registerGroceryItem(GroceryItem item) throws SQLException {
+        Logger.getLogger(DBConnector.class).info("Register Grocery "+item.toString());
+        Statement statement = (Statement) connection.createStatement();
+        statement.setQueryTimeout(30);
+        statement.executeUpdate("insert into grocery (name, price, amount, measure) values ('" + item.getName()+"', '"+item.getPrice()+"', '"+item.getAmount()+"', '"+item.getMeasure().getValueName() + "')");
+        statement.close();
+    }
 }
