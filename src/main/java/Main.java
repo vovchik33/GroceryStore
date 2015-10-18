@@ -51,6 +51,10 @@ public class Main {
                 connector.registerGroceryItem(item);
             }
 
+            Logger.getLogger(Main.class).info(connector.getCustomerByName("Vladimir"));
+            Logger.getLogger(Main.class).info(connector.getClerkByName("Vladimir"));
+            Logger.getLogger(Main.class).info(connector.getGroceryByName("potato"));
+
             connector.closeConnection();
         } catch (SQLException e) {
             e.printStackTrace();
